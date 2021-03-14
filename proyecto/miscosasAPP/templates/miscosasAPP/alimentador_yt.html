@@ -1,0 +1,122 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+
+  <li>
+      <a href="/miscosas/">Inicio</a>
+    </li>
+
+    <li>
+        <a href="/miscosas/#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li >
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+      <li>
+          <a href="/miscosas/alimentadores">Alimentadores</a>
+        </li>
+
+          <li>
+              <a href="/miscosas/usuarios">Usuarios</a>
+            </li>
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="?format=xml">Documento XML de esta página</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="?format=json">Documento JSON de esta página</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<h2 id="h2_aliment"><span id="aux_titulo">Alimentador</span> proporcionado por: &nbsp&nbsp<span class="yt_aliment"><i class="fab fa-youtube"></i>Youtube</span></h2>
+<h1 class="nombre_canal"><a style="font-size: 5rem;text-decoration:none;" href="{{alimentador.url}}">{{alimentador.nombre}}</a></h1>
+
+
+{% if alimentador.seleccionado == True %}
+<form action="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}/Deselect/alimentador" method="POST">
+    {% csrf_token %}
+    <button style="text-align:center; margin-left:3rem;width:200px;height:50px;font-size:25px;" type="submit" class="btn btn-danger">Eliminar</button>
+</form>
+{% elif alimentador.seleccionado == False %}
+<form action="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}/Select/alimentador" method="POST">
+    {% csrf_token %}
+    <button style="text-align:center;margin-left:3rem;width:200px;height:50px;font-size:25px;" type="submit" class="btn btn-success">Seleccionar</button>
+</form>
+{% endif %}
+
+
+
+  {% if items %}
+  <h1 style="text-decoration:none;color:black;margin-top: 10rem;margin-bottom:-8rem;">Videos del canal</h1>
+
+  <div class="container-fluid">
+    <div class="row" id="items_aliment">
+
+        {% for content in items %}
+            <div class="col col-sm-4 tab_alimentador">
+                <section class="aliment_section">
+                  <a href="/miscosas/youtube/{{alimentador.clave}}/{{content.clave}}"><img src="{{content.media}}"></a>
+                    <h4 class="nombreitem">
+                        <br>
+                        <a style="font-size:25px; " href="/miscosas/youtube/{{alimentador.clave}}/{{content.clave}}">{{content.nombre}}</a><br>
+                    </h4>
+
+                </section>
+                <br>
+            </div>
+        {% endfor %}
+      </div>
+  </div>
+      <p></p>
+
+      {% else %}
+      <p>No contents are available.</p>
+      {% endif %}
+{% endblock %}

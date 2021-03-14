@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8">
+    <title>Mis Cosas</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/info.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/principal.css' %}">
+    <script src="https://kit.fontawesome.com/8ca19fd4f3.js" crossorigin="anonymous"></script>
+
+</head>
+
+  <body>
+
+	<header>
+		<a href="/miscosas" class="logo">MisCosas</a>
+<div class="menu-toggle"><i id="bars" class="fa fa-bars"></i></div>
+    <ul class="ul_end">
+
+			<li class="home"><div class="nav_end">Home</div>
+
+        <ul>
+          <div class="over-box">
+          <li><a href="/miscosas/principal/#top10">Top 10</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="/miscosas/#top5">Top 5</a></li>
+          {% endif %}
+          <li><a href="/miscosas/#formularios_index">Buscar Alimentador</a></li>
+        </div>
+        </ul>
+      </div>
+      </li>
+			<li><a href="/miscosas/prueba_users" class="nav_end">Usuarios</a></li>
+			<li class="descargas"><div class="nav_end">Descargas</div>
+        <ul>
+          <div class="over-box">
+          <li><a href="#">Documento XML</a></li>
+
+          <li><a href="#">Documento JSON</a></li>
+        </div>
+        </ul>
+      </li>
+			<li><a href="/miscosas/prueba" class="nav_end active">Información</a></li>
+      {% if user.is_authenticated %}
+
+
+      </li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li class="opciones"><a style="color: #89ff00;" href="#" class="nav_end">{{user.username}}</a>
+        <ul>
+          <div class="over-box">
+          <li class="dark"><a style="font-weight: 800;" href="/miscosas/night"></a></li>
+          <li><a style="font-weight: 800; color: red;" href="/miscosas/logout">Logout</a></li>
+        </div>
+          </ul>
+      </li>
+      {% else %}
+      <li><a href="/miscosas/prueba_log" class="nav_end">Login</a></li>
+      <li><a href="/miscosas/prueba_reg" class="nav_end">Registrate</a></li>
+      {% endif %}
+      <div class="fix-height"></div>
+		</ul>
+    	</header>
+      <div class="contenido-index">
+        <div id="top10" class="top top10">
+          <div class="titulo">
+            <div class="expand">
+              <i class="fa fa-eye-slash"></i>
+            </div>
+            <h2>Top 10</h2>
+          </div>
+          <div class="contenido">
+            <!-- Swiper -->
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>1</h1>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>2</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>3</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>4</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>5</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>6</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>7</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>8</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>9</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>10</h1>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+        </div>
+        <div id="top5" class="top top5">
+          <div class="titulo">
+            <div class="expand">
+              <i class="fa fa-eye-slash"></i>
+            </div>
+            <h2>Top 5</h2>
+          </div>
+          <div class="contenido">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>1</h1>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>2</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>3</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>4</h1>
+                  </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="card-swiper">
+                    <div class="layer"></div>
+                    <div class="content-card">
+                    <h1>5</h1>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="al-select">
+          <h2>Alimentadores Seleccionados</h2>
+        </div>
+
+        <div class="busqueda">
+          <h2>Busqueda de Alimentadores</h2>
+          <div class="search-container">
+          <div class="search yt">
+            <div id="content">
+             <h1>
+              <span class="you">You</span>
+              <span class="tube">Tube</span>
+            </h1>
+              <form action="/miscosas/" method="POST">
+                <div class="form__div">
+                    <input type="text" class="form__input" placeholder=" ">
+                    <label for="" class="form__label">Channel ID</label>
+                </div>
+            <a href="#"><i class="fab fa-youtube"></i> Buscar</a>
+          </form>
+            </div>
+          </div>
+          <div class="search fm">
+            <h1>L<i class="fab fa-lastfm"></i>t.fm</h1>
+            <form action="/miscosas/" method="POST">
+                <div class="form__div">
+                    <input type="text" class="form__input" placeholder=" ">
+                    <label for="" class="form__label">Artist</label>
+                </div>
+            <a href="#"><i class="fas fa-music"></i> Buscar</a>
+          </form>
+          </div>
+        </div>
+        </div>
+      </div>
+  
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+
+    var swiper10 = new Swiper('.top10 .swiper-container', {
+      observer: true,
+      speed: 400,
+      
+      observeParents: true,
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      parallax: true,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 0,
+        modifier: 0,
+        slideShadows: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + "#"+(index + 1) + '</span>';
+        },
+      },
+    });
+    var swiper5 = new Swiper('.top5 .swiper-container', {
+      observer: true,
+      speed: 400,
+      
+      observeParents: true,
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      parallax: true,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 0,
+        modifier: 0,
+        slideShadows: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + "#"+(index + 1) + '</span>';
+        },
+      },
+    });
+  </script>
+  <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="{% static 'miscosasAPP/fitty.min.js' %}"></script>
+
+
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $('.top10 .expand').click(function(){
+          swiper10.slideTo(0, 50, true);
+          $('.top10 .contenido').toggleClass('actived')
+          $('top10').toggleClass('actived')
+          if ($(this).children().hasClass('fa fa-eye-slash'))
+          {
+            $(this).children().removeClass("fa fa-eye-slash")
+            $(this).children().addClass("fa fa-eye")
+
+          }
+          else
+          {
+            $(this).children().removeClass("fa fa-eye")
+            $(this).children().addClass("fa fa-eye-slash")
+
+
+          }
+
+        })
+        $('.top5 .expand').click(function(){
+          swiper5.slideTo(0, 50, true);
+          $('.top5 .contenido').toggleClass('actived')
+          $('top5').toggleClass('actived')
+          if ($(this).children().hasClass('fa fa-eye-slash'))
+          {
+            $(this).children().removeClass("fa fa-eye-slash")
+            $(this).children().addClass("fa fa-eye")
+          }
+          else
+          {
+            $(this).children().removeClass("fa fa-eye")
+            $(this).children().addClass("fa fa-eye-slash")
+          }
+
+
+        })
+
+
+         $('.menu-toggle').click(function(){
+            $('.ul_end').toggleClass('active')
+            $('header').toggleClass('activated')
+            $('body').toggleClass('no-scroll')
+            $('.ul_end li').siblings().removeClass('actived');
+            if(document.getElementById('bars').className =='fa fa-times'){
+              document.getElementById('bars').className = 'fa fa-bars'
+            }
+            else{
+              document.getElementById('bars').className = 'fa fa-times'
+            }
+        })
+        $('.ul_end li').click(function(){
+          $(this).siblings().removeClass('actived');
+          $(this).toggleClass('actived');
+        })
+        $('.dark').click(function(){
+            $('body').toggleClass('night')
+            $('.ul_end').toggleClass('active')
+            $('header').toggleClass('activated')
+          })
+
+    })
+  </script>
+  <script type="text/javascript">
+	window.addEventListener("scroll", function(){
+		var header = document.querySelector("header");
+		header.classList.toggle("sticky", window.scrollY > 0)
+	})
+  </script>
+  </body>
+
+</html>

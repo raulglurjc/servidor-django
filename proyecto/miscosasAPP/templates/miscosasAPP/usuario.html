@@ -1,0 +1,124 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+
+  <li>
+      <a href="/miscosas/">Inicio</a>
+    </li>
+
+    <li>
+        <a href="#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+      <li>
+          <a href="/miscosas/alimentadores">Alimentadores</a>
+        </li>
+
+          <li>
+              <a href="/miscosas/usuarios">Usuarios</a>
+            </li>
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="?format=xml">Documento XML de esta página</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="?format=json">Documento JSON de esta página</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+
+
+{% block content %}
+
+<img style="float:left;position:absolute; left:10rem;" width="200" height="200" src="/media/{{usuario.image}}">
+{% if  bienvenido %}
+<form style="font-size:20px;position:absolute; bottom:6rem;" action="" method="post">
+  {% csrf_token %}
+    Cambiar foto de perfil:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload" name="submit">
+</form>
+{%endif%}
+{% if not bienvenido %}
+    <h1 style="text-decoration:none;"><i style="padding-right:1rem;"class="fas fa-user fa-2x"></i>Perfil de <span style="padding-left:1rem;text-decoration:underline;color:black; font-size:5rem;">{{usuario.username}}</span></h1>
+{%else %}
+<h1 style="text-decoration:none;"><i style="padding-right:1rem;"class="fas fa-user fa-2x"></i>Bienvenido<span style="padding-left:1rem;text-decoration:underline;color:black; font-size:5rem;">{{usuario.username}}</span></h1>
+
+{%endif%}
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col" style="margin-left:3rem;margin-right:2rem;background-color:white;">
+        <h2 style="padding-top:1rem;margin-bottom: 2rem;color:black;font-size:3rem;text-align:center;"><i class="fa fa-comment" aria-hidden="true"></i> Lo que <span style="text-decoration:underline;color:black; font-size:3rem;">{{usuario.username}}</span> ha comentado</h2>
+        {%for item in comentarios%}
+        <div style="background-color:#c8b699; margin-bottom:20px;">
+
+          <img style="padding-left:20px;padding-top: 10px;padding-bottom: 10px;" width=150 height=150 src="{{item.item.media}}"
+        <h3><a style="font-weight:bold;color:black;margin-left:1rem; font-size:17px;" href="{{item.item.enlace}}">{{item.item}}</a></h3><br>
+        <h3 style="padding-left: 1rem;"><span style="color: black;"><i  class="far fa-comment-dots"></i> {{item.usuario.username}}</span> : <span style="color:black">{{item.cuerpo}}</span></h3>
+        </div>
+        {% endfor %}
+
+      </div>
+      <div class="col" style="margin-left:2rem;margin-right:2rem;background-color:white;">
+        <h2 style="padding-top:1rem;margin-bottom: 1.5rem;color:black;font-size:3rem;text-align:center;">Lo que <span style="color:black; font-size:3rem;text-decoration:underline;">{{usuario.username}}</span> ha votado <i class="fa fa-heart" style="font-size:48px;color:red"></i></h2>
+        {%for item in votos%}
+        <div style="background-color:#c8b699; margin-bottom:20px;">
+          <img style="padding-left:20px;padding-top: 20px;" width=150 height=150 src="{{item.item.media}}"
+        <h3><a style="font-weight:bold;color:black;margin-left:1rem; font-size:17px;" href="{{item.item.enlace}}">{{item.item}}</a></h3><br>
+
+        {% if item.estado == "like" %}
+        <i style="position:relative; left: 10rem;bottom:1.4rem;" class="fa fa-thumbs-up" aria-hidden="true"> Like</i>
+        {% elif item.estado == "dislike" %}
+        <i style="position:relative; left: 10rem;bottom:1.4rem;" class="fa fa-thumbs-down" aria-hidden="true"> Dislike</i>
+        {% endif %}
+        <br>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+    </div>
+{% endblock %}

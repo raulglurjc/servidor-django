@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+    <titulo>Mis Cosas 2020</titulo>
+
+    <top10>
+        {%for item in top %}
+            <item>
+                <nombre>{{item.nombre}}</nombre>
+                <url>{{item.enlace}}</url>
+                <popularidad>{{item.popularidad}}</popularidad>
+            </item>
+        {%endfor%}
+    </top10>
+    {% if user.is_authenticated %}
+    <top5>
+        {%for voto in top5_aux%}
+            <nombre>{{voto.item.nombre}}</nombre>
+            <link>{{voto.item.enlace}}</link>
+            <estado>{{voto.estado}}</estado>
+        {%endfor%}
+    </top5>
+    {%endif%}
+
+    <alimentadores_index>
+        <alimentadores_youtube>
+            {%for alimentadores in youtube%}
+            <alimentador>
+                <nombre>{{alimentadores.nombre}}</nombre>
+                <enlace>{{alimentadores.enlace}}</enlace>
+                <items>Items:{{alimentadores.item_set.count}}</items>
+                <puntuacion>Puntuacion:{{alimentadores.puntuacion}}</puntuacion>
+            </alimentador>
+            {%endfor%}
+        </alimentadores_youtube>
+
+        <alimentadores_lastfm>
+            {%for alimentadores in lastfm%}
+            <alimentador>
+                <nombre>{{alimentadores.nombre}}</nombre>
+                <enlace>{{alimentadores.enlace}}</enlace>
+                <items>Items:{{alimentadores.item_set.count}}</items>
+                <puntuacion>Puntuacion:{{alimentadores.puntuacion}}</puntuacion>
+            </alimentador>
+            {%endfor%}
+        </alimentadores_lastfm>
+
+
+
+    </alimentadores_index>
+</feed>

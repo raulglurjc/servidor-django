@@ -1,0 +1,116 @@
+body{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height:100vh;
+	background: url('https://images.wallpaperscraft.com/image/snow_trees_northern_lights_199451_3840x2160.jpg');
+	background-size:cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.box-log{
+	position: relative;
+	width: 400px;
+	padding: 40px;
+	background: rgba(0,0,0,.6);
+	box-sizing: border-box;
+	box-shadow: 10px 10px 25px rgba(0,0,0,.8);
+	border-radius: 15px;
+	border: 2px solid white;
+}
+
+.box-log h2{
+	margin: 0 0 30px;
+	padding: 0;
+	color: white;
+	text-align: center;
+}
+.box-log .inputBox{
+	position: relative;
+}
+.box-log .inputBox input{
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: white;
+	letter-spacing: 1px;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid white;
+	outline: none;
+	background: transparent;
+}
+.box-log .inputBox label{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color: white;
+	pointer-events: none;
+	transition: .5s;
+}
+.box-log .inputBox input:focus ~ label,
+.box-log .inputBox input:valid ~ label{
+	top: -28px;
+	left: 0;
+	color: #03a9f4;
+	font-size: 19px;
+}
+.box-log input[type="submit"]{
+	position: relative;
+	left: calc(50% - 40px);
+	border: none;
+	outline: none;
+	color: white;
+	background: #03a9f4;
+	padding: 10px 20px;
+cursor: pointer;
+border-radius: 5px;
+}
+.box-log #error-log{
+	display: block;
+	color: red;
+	text-align: center;
+	padding-bottom: 20px;
+}
+.box-log #nombre-error{
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+@media (max-width: 1500px)
+{
+
+}
+/*TABLET PORTRAIT*/
+@media (min-width: 768px) and (max-width: 1024px)
+{
+	body{
+	background: url('https://images.pexels.com/photos/1586298/pexels-photo-1586298.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+	background-size:100% 100%;
+}
+}
+/*TABLET LANDSCAPE*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+  /* CSS */
+	body{
+	background: url('https://images.wallpaperscraft.com/image/snow_trees_northern_lights_199451_3840x2160.jpg');
+	background-size:100% 100%;
+}
+}
+@media (min-width: 320px) and (max-width: 480px)
+{
+body{
+	background: url('https://images.pexels.com/photos/1586298/pexels-photo-1586298.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+	background-size:100% 100%;
+}
+
+}
+@media (max-height: 587px)
+{
+	.box-log{
+		margin-top: 100px;
+	}
+}

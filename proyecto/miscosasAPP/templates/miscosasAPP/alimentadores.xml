@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+    <titulo>Alimentadores</titulo>
+
+    <youtube>
+        {%for alimentador in youtube%}
+            <alimentador>
+                <nombre>{{alimentador.nombre}}</nombre>
+                <enlace>{{alimentador.url}}</enlace>
+                <items>Videos:{{alimentador.item_set.count}}</items>
+                <puntuacion>Puntuacion:{{alimentador.popularidad}}</puntuacion>
+            </alimentador>
+        {%endfor%}
+    </youtube>
+
+    <lastfm>
+        {%for alimentador in lastfm%}
+            <alimentador>
+                <nombre>{{alimentador.nombre}}</nombre>
+                <enlace>{{alimentador.enlace}}</enlace>
+                <items>Albumes:{{alimentador.item_set.count}}</items>
+                <puntuacion>Puntuacion:{{alimentador.popularidad}}</puntuacion>
+            </alimentador>
+        {%endfor%}
+    </lastfm>
+
+
+</feed>

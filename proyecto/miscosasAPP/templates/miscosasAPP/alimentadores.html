@@ -1,0 +1,166 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+
+  <li>
+      <a href="/miscosas/">Inicio</a>
+    </li>
+
+    <li>
+        <a href="/miscosas/#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+                <li>
+              <a href="/miscosas/usuarios">Usuarios</a>
+            </li>
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="?format=xml">Documento XML de esta página</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="?format=json">Documento JSON de esta página</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-bottom: 10rem;">
+  <h1 style="background-color:black;border-radius:20px;padding-top:18px;margin-left:15rem;color: white;text-decoration:none;border: solid 3px black;position:relative;width:70%;">Alimentadores Históricos</h1>
+
+  <div class="row">
+
+    <div class="col" style="margin-left: 5rem; background-color:white;" id="historialyt">
+    <h2 style="text-align: center; color: red; font-weight: lighter;" class="youtube"><i class="fab fa-youtube"></i>Youtube</h2>
+
+
+
+        {% if youtube %}
+        <div id="histyoutube">
+        {%for alimentador in youtube%}
+            <h3 style="text-align: center;" class="nombreitem">
+                <a style="color:black; text-decoration: underline;" href="{{alimentador.enlace}}">{{alimentador.nombre}}</a><br>
+            </h3>
+            <div class="row">
+            <div class="col-sm-3 offset-sm-3">
+                <h4 style="text-align: center;text-align: center;color:black;">Videos</h4>
+                <h6 style="text-align: center;color:black;">{{alimentador.item_set.count}}</h6>
+
+                    <a href="/miscosas/youtube/{{alimentador.clave}}"><button style="text-align:center; margin-left:3rem;width:150px;" type="submit" class="btn btn-primary">Visitar Alimentador</button></a>
+                    {% if alimentador.seleccionado == True %}
+                    <form action="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}/Deselect/alimentadores" method="POST">
+                        {% csrf_token %}
+                        <button style="text-align:center; margin-left:3rem;width:150px;" type="submit" class="btn btn-primary">Eliminar</button>
+                    </form>
+                    {% elif alimentador.seleccionado == False %}
+                    <form action="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}/Select/alimentadores" method="POST">
+                        {% csrf_token %}
+                        <button style="text-align:center; margin-left:3rem;width:150px;" type="submit" class="btn btn-primary">Seleccionar</button>
+                    </form>
+                    {% endif %}
+            </div>
+            <div class="col-sm-3">
+                <h4 style="text-align: center;text-align: center;color:black;">Puntuación</h4>
+                <h6 style="text-align: center;text-align: center;color:black;">{{alimentador.puntuacion}}</h6>
+
+            </div>
+        </div>
+        <br>
+        {%endfor%}
+
+    </div>
+    {% else %}
+    <h3 style="text-align: center; font-style: italic; font-size: 1rem;"> No hay Alimentadores para mostrar</h3>
+    {% endif %}
+</div>
+
+<div class="col" style="margin-left: 5rem; background-color:white;" id="historiallast">
+    <h2 style="text-align: center; color: purple; font-weight: lighter;" class="lastfm">L<i class="fab fa-lastfm"></i>t.fm</h2>
+
+
+    <div id="histlastfm">
+        {% if lastfm %}
+        {%for alimentador in lastfm%}
+            <h3 style="text-align: center;" class="nombreitem">
+                <a style="color:black; text-decoration: underline;" href="{{alimentador.enlace}}">{{alimentador.nombre}}</a><br>
+            </h3>
+            <div class="row">
+            <div class="col-sm-3 offset-sm-3">
+                <h4 style="text-align: center;text-align: center;color:black;">Álbumes</h4>
+                <h6 style="text-align: center;color:black;">{{alimentador.item_set.count}}</h6>
+
+                <a href="/miscosas/lastfm/{{alimentador.clave}}"><button style="text-align:center; margin-left:3rem;width:150px;" type="submit" class="btn btn-primary">Visitar Alimentador</button></a>
+
+
+                {% if alimentador.seleccionado == True %}
+                <form action="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}/Deselect/alimentadores" method="POST">
+                    {% csrf_token %}
+                    <button style="text-align:center; margin-left:3rem;width:150px;" type="submit" class="btn btn-primary">Eliminar</button>
+                </form>
+                {% elif alimentador.seleccionado == False %}
+                <form action="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}/Select/alimentadores" method="POST">
+                    {% csrf_token %}
+                    <button style="text-align:center; margin-left:3rem;width:150px;" type="submit" class="btn btn-primary">Seleccionar</button>
+                </form>
+                {% endif %}
+            </div>
+            <div class="col-sm-3">
+                <h4 style="text-align: center;text-align: center;color:black;">Puntuación</h4>
+                <h6 style="text-align: center;text-align: center;color:black;">{{alimentador.puntuacion}}</h6>
+
+            </div>
+        </div>
+        <br>
+        {%endfor%}
+
+    </div>
+    {% else %}
+    <h3 style="text-align: center; font-style: italic; font-size:1rem;"> No hay Alimentadores para mostrar</h3>
+    {% endif %}
+</div>
+</div>
+</div>
+
+{% endblock %}

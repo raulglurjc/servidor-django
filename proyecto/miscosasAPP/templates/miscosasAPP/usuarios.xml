@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+  <usuarios>
+      {%for usuario in users%}
+      <usuario>
+          {%if usuario.image%}
+          <imagen>{{usuario.image.url}}</imagen>
+          {%endif%}
+          <nombre>{{usuario.username}}</nombre>
+
+      </usuario>
+      {%endfor%}
+  </usuarios>
+</feed>

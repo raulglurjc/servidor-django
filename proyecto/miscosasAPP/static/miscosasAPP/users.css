@@ -1,0 +1,335 @@
+*
+{
+margin: 0;
+padding: 0;
+}
+
+body{
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(45deg, #ffaf00, #bb02ff);
+	background-attachment: fixed;
+}
+
+.container{
+	position: relative;
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	padding-top: 30px;
+}
+.container .card{
+	position: relative;
+	width: 300px;
+	height: 420px;
+	background: white;
+	margin: 2px;
+	border-radius: 20px;
+	transition: 0.5s;
+	display: flex;
+	overflow: hidden;
+	justify-content: center;
+}
+.container .envelop .card .x{
+	position: absolute;
+	right: 20px;
+	top: 5px;
+	z-index: 1;
+	color: white;
+	font-size: 25px;
+	cursor: pointer;
+
+	}
+
+		.x.blocked{
+			display: none;
+		}
+		.non-scroll{
+			overflow: hidden;
+		}
+ .envelop{
+	position: relative;
+	width: auto;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: black;
+	margin: 20px;
+	border-radius: 20px;
+	transition: 0.5s;
+}
+
+.container.actived .envelop{
+	filter: blur(5px);
+	opacity: 0.5;
+	transition: .5s;
+}
+
+.container.hoer .envelop
+{
+	filter: blur(5px);
+	opacity: 0.5;
+	transition: .5s;
+}
+.envelop.hoer{
+	filter: blur(0px) !important;
+	opacity: 1 !important;
+	transition: .5s;
+}
+
+.container .envelop.selected .card{
+	margin: 2px;
+	width: 40vw;
+}
+
+
+.container .card .circle{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: black;
+	clip-path: circle(160px at center 0);
+	text-align: center;
+	transition: clip-path 0.5s;
+}
+.container .envelop.selected .circle{
+	clip-path: circle(100%);
+	transition: clip-path 2s;
+}
+.container .card .circle h2{
+	color: white;
+	font-size: calc(100vw * 0.025);
+	padding: 70px 0;
+}
+.container .envelop.selected .card .circle h2{
+	transform: translateY(-60px);
+}
+.container .card .content{
+	position: absolute;
+	width: 100%;
+	height: 55%;
+	bottom: 0;
+	margin-bottom: 10px;
+	page-break-after: 20px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.container .card img{
+	width: 120px;
+	position: absolute;
+	border-radius: 50%;
+	border: 3px solid black;
+	box-shadow: 0px 0px 12px 8px black;
+	background: white;
+}
+.container .card .content p{
+	color: #666;
+}
+.container .card .content a{
+position:absolute;
+color: white;
+display: inline-block;
+padding: 10px 20px;
+background: black;
+border-radius: 40px;
+text-decoration: none;
+margin-bottom: 20px;
+bottom: 0;
+}
+.container .envelop.selected .content a{
+	background: white !important;
+	color: #ffaf00;
+}
+.container .envelop.selected .content{
+	height: 100%;
+}
+.container.actived .envelop.selected .card img{
+	left: 0;
+	transform: translateY(20%) translateX(10%);
+}
+
+.container .envelop
+{
+	background: black;
+}
+.container .envelop:before{
+	content: '';
+	position: absolute;
+	background: black;
+	height: 100%;
+	width: 100%;
+	filter: blur(20px);
+}
+.container.actived .envelop.selected:before{
+	content: '';
+	position: absolute;
+	background: #000;
+	height: 100%;
+	width: 100%;
+	filter: blur(50px);
+	margin-top
+}
+.container .envelop.selected{
+
+	filter: blur(0px);
+	opacity: 1;
+	transform: scale(1.3);
+	z-index: 9;
+	position: absolute;
+	top: 0;
+	margin-top: -100px;
+}
+
+
+.container .envelop:nth-child(1) .card .circle,
+.container .envelop:nth-child(1) .card .content a{
+	background: #ffaf00;
+}
+.container .envelop:nth-child(1) .card .content img{
+	box-shadow: 0px 0px 12px 8px #ffaf00;
+}
+.container .envelop:nth-child(2) .card .circle,
+.container .envelop:nth-child(2) .card .content a{
+	background: #da2268;
+}
+.container .envelop:nth-child(2) .card .content img{
+	box-shadow: 0px 0px 12px 8px #da2268;
+}
+.container .envelop:nth-child(3) .card .circle,
+.container .envelop:nth-child(3) .card .content a{
+	background: #bb02ff;
+}
+.container .envelop:nth-child(3) .card .content img{
+	box-shadow: 0px 0px 12px 8px #bb02ff;
+}
+.container.actived .envelop.selected .card .content img{
+	box-shadow: 0px 0px 12px 4px #000;
+}
+.container.actived .envelop.selected .card .content a{
+	box-shadow: 0px 0px 12px 4px #000;
+	border: 2px solid #000;
+}
+
+.container-titulo{
+	margin-top: 75px;
+}
+.container-titulo span {
+  font-size: 120pt;
+  font-weight: bold;
+  position: relative;
+  font-family: "Fredoka One";
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+.container-titulo span::before {
+  content: var(--l);
+  position: absolute;
+  transform: scale(1.1);
+  filter: blur(15px);
+}
+.container-titulo span::after {
+  content: var(--l);
+  position: absolute;
+
+  left: 0;
+  filter: blur(30px);
+  transform: rotateX(50deg);
+}
+.container-titulo span:hover {
+  filter: contrast(250%);
+}
+
+.container-titulo span
+ {
+  color: #6ad23a;
+}
+
+@media (max-width: 1500px)
+{
+.container .card .circle h2{
+font-size: calc(100vw * 0.04)
+}
+.container.actived .envelop.selected{
+	margin-top: -150px;
+}
+
+}
+/*TABLET PORTRAIT*/
+@media (min-width: 600px) and (max-width: 1024px)
+{
+	.container-titulo span{
+		font-size: calc(100vw * 0.13);
+	}
+	.container.actived .envelop.selected{
+		margin-top: 0px;
+	}
+	.container.actived .envelop.selected .card{
+		height: 50vh;
+		width: 65vw;
+	}
+}
+/*TABLET LANDSCAPE*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+  /* CSS */
+.container.actived .envelop.selected{
+	margin-top: -100px;
+}
+.container.actived .envelop.selected .card{
+	height: 50vh;
+	width: 65vw;
+}
+.container.actived .envelop.selected .card img{
+	left: 0;
+	transform: translateY(20%) translateX(10%);
+}
+}
+/*Moviles PORTRAIT*/
+@media (min-width: 320px) and (max-width: 480px)
+{
+	.container-titulo span{
+		font-size: calc(100vw * 0.17);
+	}
+	.container .card .circle h2{
+	font-size: calc(100vw * 0.09)
+	}
+	.container.actived .envelop.selected .card{
+		width: 70vw;
+	}
+	.container.actived .envelop.selected{
+
+		margin-top: 0px;
+	}
+	.container .envelop.selected .card .circle h2{
+		transform: translateY(-40px) translateX(20px);
+	}
+	.container{
+		padding-top: 30px;
+	}
+	.container.actived .envelop.selected .card img{
+		width: 80px;
+		transform: translateY(40%) translateX(20%);
+	}
+}
+/*Moviles LANDSCAPE*/
+@media (min-width: 480px) and (max-width: 600px) and (orientation: landscape)
+{
+	.container.actived .envelop.selected{
+
+		padding-top: 20px;
+	}
+	.container-titulo span{
+		font-size: calc(100vw * 0.17);
+	}
+}
+/*fix altura*/

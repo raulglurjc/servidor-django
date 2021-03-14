@@ -1,0 +1,84 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+  <li>
+      <a href="/miscosas">Inicio</a>
+    </li>
+    <li>
+        <a href="/miscosas/#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+      <li>
+          <a href="/miscosas/alimentadores">Alimentadores</a>
+        </li>
+
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="/miscosas/usuarios?format=xml">Documento XML de esta página</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/miscosas/usuarios?format=json">Documento JSON de esta página</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<h1>Usuarios</h1>
+<div class="container-fluid" style="">
+  <div class="row" id="usuario" style="background-color: #4c594e;padding-bottom:3rem;margin-right:-20px;">
+{%for user in users%}
+        <div class="col-3" id="bloque_usuarios" style="background-color: #eedca9;margin-left: 7.5rem;margin-top:3rem;">
+          <img  class="fotousuario" src="{% static 'miscosasAPP/usuario.png' %}" width="200" height="130"><br>
+          <p><a href="/miscosas/usuarios/{{user.username}}">{{user.username}}</a><br>
+      </div>
+{%endfor%}
+  </div>
+</div>
+ {% endblock %}

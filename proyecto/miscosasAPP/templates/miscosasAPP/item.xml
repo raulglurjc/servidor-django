@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+    <titulo>{{item.nombre}}</titulo>
+
+    <alimentador>
+        <nombre>{{alimentador.nombre}}</nombre>
+        <id>{{alimentador.clave}}</id>
+    </alimentador>
+    <item>
+        {%if alimentador.tipo_alimentador == 'youtube'%}
+            <nombre>{{item.nombre}}</nombre>
+            <imagen>{{item.media}}</imagen>
+            <descripcion>{{item.info}}</descripcion>
+        {%elif alimentador.tipo_alimentador == 'lastfm' %}
+            <nombre>{{item.nombre}}</nombre>
+            <imagen>{{item.media}}</imagen>
+        {%endif%}
+    </item>
+    {% if user.is_authenticated %}
+        {%if voto.estado == 'like'%}
+            <estado>positivo</estado>
+        {%elif voto.estado == "dislike"%}
+            <estado>negativo</estado>
+        {%endif%}
+    {%endif%}
+
+
+
+
+    <comentarios>
+        {%if comment%}
+        {%for comentario in comment%}
+        <comentario>
+            <nombre>{{comentario.usuario.username}}</nombre>
+            <fecha>{{comentario.fecha}}</fecha>
+            <cuerpo>{{comentario.cuerpo}}</cuerpo>
+        </comentario>
+          {%endfor%}
+        {%endif%}
+    </comentarios>
+</feed>

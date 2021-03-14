@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+    <usuario>{{users.username}}</usuario>
+    <foto>{{users.image.url}}</foto>
+
+
+    <votos>
+        {%for voto in votos%}
+        <item>
+            <nombre>{{voto.item.nombre}}</nombre>
+            <imagen>{{voto.item.media}}</imagen>
+            <enlace>{{voto.item.enlace}}</enlace>
+            <estado>{{voto.estado}}</estado>
+        </item>
+        {%endfor%}
+    </votos>
+
+    <itemscomentados>
+        {%for comentario in comentarios%}
+        <item>
+            <nombre>{{comentario.item.nombre}}</nombre>
+            <imagen>{{comentario.item.media}}</imagen>
+            <enlace>{{comentario.item.enlace}}</enlace>
+            <cuerpo>{{comentario.cuerpo}}</cuerpo>
+        </item>
+        {%endfor%}
+    </itemscomentados>
+</feed>

@@ -1,0 +1,111 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+
+  <li>
+      <a href="/miscosas/">Inicio</a>
+    </li>
+
+    <li>
+        <a href="/miscosas/#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+      <li>
+          <a href="/miscosas/alimentadores">Alimentadores</a>
+        </li>
+
+          <li>
+              <a href="/miscosas/usuarios">Usuarios</a>
+            </li>
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Documento XML</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Documento JSON</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+    <header class="register">
+        <h1> Crea tu usuario</h1>
+    </header>
+    <div class="registroform">
+      <div class="register-form">
+
+        <form method="POST" action=""  enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="usuario_reg">
+            <label for="Username"><b>Usuario</b></label>
+            <input type="text" placeholder="Enter Username" name="Username" required>
+            </div>
+            <div class="password_reg">
+            <label for="Password"><b>Contraseña</b></label>
+            <input type="password" placeholder="Enter Password" name="Password" required>
+            </div>
+
+            <div class="email_reg">
+            <label for="Email"><b>E-mail</b></label>
+            <input type="email" placeholder="Introduzca su e-mail" name="Email" required>
+            </div>
+
+
+            <div class="boton_reg">
+            <button type="submit" class="save btn btn-info">Crear</button>
+            </div>
+        </form>
+        {%if usuario%}
+          <p id="error_reg" >El usuario <span class="user_bold1">{{usuario}}</span> ya existe, pruebe a introducir otro. </p>
+        {%endif%}
+        </div>
+    </div>
+    {%endblock%}

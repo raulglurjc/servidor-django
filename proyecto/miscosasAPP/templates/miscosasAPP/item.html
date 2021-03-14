@@ -1,0 +1,239 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+
+  <li>
+      <a href="/miscosas/">Inicio</a>
+    </li>
+
+    <li>
+        <a href="/miscosas/#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li >
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="/miscosas/alimentadores">Alimentadores</a>
+          </li>
+
+
+
+
+
+          <li class="usuarios_login">
+              <a href="/miscosas/usuarios">Usuarios</a>
+            </li>
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="?format=xml">Documento XML de esta página</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="?format=json">Documento JSON de esta página</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class="content_item">
+{% if tipo == "youtube" %}
+<h2 id="h2_aliment"><span id="aux_tituloyt">ITEM </span>  proporcionado por: &nbsp&nbsp<span class="yt_aliment"><i class="fab fa-youtube"></i>Youtube</span></h2>
+
+<h1 class="nombre_canal_item"><a href="/miscosas/{{item.alimentador.tipo_alimentador}}/{{item.alimentador.clave}}">Canal de <span id="nombre_canal_item">{{alimentador.nombre}}</span></a></h1>
+
+<h2 class="nombre_item"><a href="{{item.enlace}}">{{item.nombre}}</a></h2>
+
+
+<div>
+  <h1 style="left:73rem;position:absolute;padding-top:7rem; font-size:50px;">Descripción del ITEM:</h1>
+  <h2 id="descripcion_video">{{item.info}}</h2>
+  <div class="video_mbed">
+    <iframe width="860" height="415" src="https://www.youtube.com/embed/{{item.clave}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% if user.is_authenticated %}
+    <form action="" method="POST">
+    {% csrf_token %}
+    {% if voto.estado == "like" %}
+    <button type="submit" class="like_item_yt_votado" name="action" value="like" disabled><i class="fa fa-thumbs-up" id="like_item_last"> Like</i></i></button>
+
+    {% else %}
+    <button type="submit" class="like_item_yt" name="action" value="like"><i class="fa fa-thumbs-up" id="like_item_last"> Like</i></i></button>
+
+    {% endif %}
+    </form>
+
+
+    <form action="" method="POST">
+    {% csrf_token %}
+
+    {% if voto.estado == "dislike" %}
+    <button type="submit" class="dislike_item_yt_votado" name="action" value="dislike" disabled><i class="fa fa-thumbs-down" id="dislike_item_last"> Dislike</i></i></button>
+
+
+    {% else %}
+    <button type="submit" class="dislike_item_yt" name="action" value="dislike"><i class="fa fa-thumbs-down" id="dislike_item_last"> Dislike</i></i></button>
+    {% endif %}
+    </form>
+    {% if voto.estado == "like" %}
+    <h3 class="yavotado" style="color:lightgreen;"> Has votado que te gusta este ITEM</h3>
+    {% endif %}
+    {% if voto.estado == "dislike" %}
+    <h3 class="yavotado" style="color:red;"> Has votado que no te gusta este ITEM</h3>
+    {% endif %}
+    {% endif %}
+  </div>
+
+
+
+
+</div>
+{% else %}
+<h2 id="h2_aliment"><span id="aux_tituloyt">ITEM </span>  proporcionado por: &nbsp&nbsp<span class="last_aliment">L<i class="fab fa-lastfm"></i>t.fm</span></h2>
+
+<h1 class="nombre_canal_item"><a href="/miscosas/{{alimentador.tipo_alimentador}}/{{alimentador.clave}}">Artista <span style="font-size:7rem;" id="nombre_canal_item"> {{alimentador.nombre}}</span></a></h1>
+<h2 style="padding-left:24rem;" class="nombre_item"><a href="{{item.enlace}}">{{item.nombre}}</a></h2>
+<div class="album">
+  <img width="300" height="300" src="{{item.media}}">
+
+<div style="position:relative;left:16rem;top:-13rem;">
+  {% if user.is_authenticated %}
+  <form action="" method="POST">
+  {% csrf_token %}
+  {% if voto.estado == "like" %}
+  <button type="submit" class="like_item_yt_votado" name="action" value="like" disabled><i class="fa fa-thumbs-up" id="like_item_last"> Like</i></i></button>
+
+  {% else %}
+  <button type="submit" class="like_item_yt" name="action" value="like"><i class="fa fa-thumbs-up" id="like_item_last"> Like</i></i></button>
+
+  {% endif %}
+  </form>
+
+
+  <form action="" method="POST">
+  {% csrf_token %}
+
+  {% if voto.estado == "dislike" %}
+  <button type="submit" class="dislike_item_yt_votado" name="action" value="dislike" disabled><i class="fa fa-thumbs-down" id="dislike_item_last"> Dislike</i></i></button>
+
+
+  {% else %}
+  <button type="submit" class="dislike_item_yt" name="action" value="dislike"><i class="fa fa-thumbs-down" id="dislike_item_last"> Dislike</i></i></button>
+  {% endif %}
+  </form>
+  {% if voto.estado == "like" %}
+  <h3  style="color:lightgreen;margin-top:-5rem;padding-left:22rem;"> Has votado que te gusta este ITEM</h3>
+  {% endif %}
+  {% if voto.estado == "dislike" %}
+  <h3  style="color:red;"> Has votado que no te gusta este ITEM</h3>
+  {% endif %}
+  {% endif %}
+  </div>
+
+  </div>
+
+{% endif %}
+
+</div>
+
+{%if tipo == "youtube"%}
+<div  id="formulario_comentario" class="container">
+
+  {% if user.is_authenticated %}
+  <h3 style="position:relative">Añade un comentario al ITEM:</h3>
+<form action="" method="POST">
+
+  {% csrf_token %}
+  <label for="comentario"></label>
+  <input class="form-control" placeholder="Introduce un comentario" id="comentario" name="comentario">
+  <input type="file" name="imagen" accept=".pdf,.jpg,.png" multiple />
+
+  <button type="submit" class="btn btn-primary" name="tipo_alimentador" value="youtube">Enviar</button>
+</form>
+{% endif %}
+</div>
+{%else%}
+<div style="margin-top:-40rem;" id="formulario_comentario" class="container">
+
+  {% if user.is_authenticated %}
+  <h3 style="position:relative">Añade un comentario al ITEM:</h3>
+<form action="" method="POST">
+
+  {% csrf_token %}
+  <label for="comentario"></label>
+  <input class="form-control" placeholder="Introduce un comentario" id="comentario" name="comentario">
+  <input type="file" name="imagen" accept=".pdf,.jpg,.png" multiple />
+
+  <button type="submit" class="btn btn-primary" name="tipo_alimentador" value="youtube">Enviar</button>
+</form>
+{% endif %}
+</div>
+
+{% endif%}
+  <div class="comentarios">
+    <div class="container">
+
+       <div class="col">
+         <h2 id="titulo_coment"><i class='fas fa-comment-dots'></i> Comentarios de usuarios sobre el ITEM:</h2>
+                      {%if comment%}
+                {%for comentario in comment%}
+                <div class="info_comentario">
+                <h2><i class="fas fa-user"></i>&nbsp&nbsp{{comentario.usuario.username}}</h2>
+
+                <h4>{{comentario.fecha}}</h4>
+                </div>
+                <p id="cuerpo_comentario">{{comentario.cuerpo}}</p>
+
+                <hr>
+                {%endfor%}
+
+                {%else%}
+                    <h4>No hay comentarios</h4>
+                {%endif%}
+                </div>
+                </div>
+</div>
+{% endblock %}

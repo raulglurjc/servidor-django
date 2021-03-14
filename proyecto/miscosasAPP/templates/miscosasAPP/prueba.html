@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8">
+    <title>Mis Cosas</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/info.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+  <body>
+
+	<header>
+		<a href="/miscosas" class="logo">MisCosas</a>
+<div class="menu-toggle"><i id="bars" class="fa fa-bars"></i></div>
+    <ul class="ul_end">
+
+			<li class="home"><div class="nav_end">Home</div>
+
+        <ul>
+          <div class="over-box">
+          <li><a href="/miscosas/#top10">Top 10</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="/miscosas/#top5">Top 5</a></li>
+          {% endif %}
+          <li><a href="/miscosas/#formularios_index">Buscar Alimentador</a></li>
+        </div>
+        </ul>
+      </div>
+      </li>
+			<li><a href="/miscosas/prueba_users" class="nav_end">Usuarios</a></li>
+			<li class="descargas"><div class="nav_end">Descargas</div>
+        <ul>
+          <div class="over-box">
+          <li><a href="#">Documento XML</a></li>
+
+          <li><a href="#">Documento JSON</a></li>
+        </div>
+        </ul>
+      </li>
+			<li><a href="#" class="nav_end active">Información</a></li>
+      {% if user.is_authenticated %}
+
+
+      </li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li class="opciones"><a style="color: #89ff00;" href="#" class="nav_end">{{user.username}}</a>
+        <ul>
+          <div class="over-box">
+          <li class="dark"><a style="font-weight: 800;" href="/miscosas/night"></a></li>
+          <li><a style="font-weight: 800; color: red;" href="/miscosas/logout">Logout</a></li>
+        </div>
+          </ul>
+      </li>
+      {% else %}
+      <li><a href="/miscosas/prueba_log" class="nav_end">Login</a></li>
+      <li><a href="/miscosas/prueba_reg" class="nav_end">Registrate</a></li>
+      {% endif %}
+      <div class="fix-height"></div>
+		</ul>
+    	</header>
+	<section class="banner">
+    <span class="titulo">Información
+    </span>
+    <div class="box">
+      <span class="arrow"></span>
+      <span class="arrow"></span>
+      <span class="arrow"></span>
+    </div>
+  </section>
+
+<div class="contenido" style="position: absolute; display: flex; justify-content: center;">
+
+
+  <div class="shadow">
+    <h1>INFORMACIÓN DEL SITIO WEB</h1>
+    <h2>Realizado por: <span style="text-decoration:underline">Raúl Gil López</span></h2>
+    <h3>URJC - Grado en Ingeniería en Tecnologías de la Telecomunicación</h3>
+    <h2>Funcionamiento</h2>
+    <p>El diseño de este sitio web está diseñado para ofrecer a los usuarios que estén o no registrados una lista de alimentadores de Youtube y LastFm (canales/artistas) con todos sus items (videos/albums) y a su vez, interactuar con ellos añadiendo comentarios, votos positivos o negativos.</p>
+    <ul><h3><a style="color:#252f5f" href="/miscosas/">Pagina Principal</a></h3></ul>
+    <p><br><br>El usuario dispone de formularios para introducir el ID del canal en caso de Youtube o el ID del artista para LastFm y asi visualizar la información del alimentador y de sus items.
+    <br><br>Para cualquier usuario que visite la página principal podrá visualizar el Top 10 de Items votados con su puntuación. Pero además, si el visitante está registrado y logueado en el sitio, también visualizará el Top 5 de los últimos 5 items votados por él.<br>
+    El visitante también podrá ver la lista de los alimentadores seleccionados, y podrá eliminar el que quiera pero solo de esa lista, no de la base de datos.</p>
+    <ul><h3><a style="color:#252f5f" href="/miscosas/alimentadores">Alimentadores</a></h3></ul>
+    <p><br><br>En esta página el visitante visualizará la lista de los alimentadores históricos del sitio web y a su vez interactuar con ellos Seleccionandolos o Deselecionandolos de la página principal.</p>
+    <ul><h3><a>Alimentador Youtube / LastFm</a></h3></ul>
+    <p><br><br>Esta página es la principal de un alimentador de Youtube o LastFm. En ella podemos ver el nombre del canal o del artista, un botón para seleccionarlo o deseleccionarlo de la pagina principal y una lista de items que corresponde a los videos o albums de ese alimentador (canal/artista)</p>
+    <ul><h3><a style="color:#252f5f" href="/miscosas/youtube/UC300utwSVAYOoRLEqmsprfg/HZOodD84MR8">Items</a></h3></ul>
+    <p><br><br>Página que representa toda la información del item seleccionado. Se visualizará el alimentador y el tipo de alimentador del que proviene junto con información detallada del item como su nombre, su foto o video y su descripcion en caso de que sea item de Youtube. Si el visitante está logueado en el sitio, podrá tanto votar positiva o negativamente el item como escribir un comentario sobre el.</p>
+
+    <ul><h3><a href="/miscosas/usuarios">Usuarios</a></h3></ul>
+    <p><br><br>En esta página podemos ver todos los usuarios de la base de datos del sitio web con un enlace que redirigirá a la página personal del usuario seleccionado.</p>
+    <ul><h3><a style="color:#252f5f" href="/miscosas/usuarios/root">Usuario</a></h3></ul>
+    <p><br><br>Página que muestra toda la actividad del usuario seleccionado en dos columnas, una para todos los comentarios que haya realizado a items y otra para los votos</p>
+    <ul><h3>Descargas</h3></ul>
+    <p><br><br>Sección de la barra de navegación en la que se puede descargar el documento XML o JSON de la página en la que se esté actualmente.</p>
+
+
+  </div>
+</div>
+
+
+
+  <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('.menu-toggle').click(function(){
+            $('.ul_end').toggleClass('active')
+            $('header').toggleClass('activated')
+            $('body').toggleClass('no-scroll')
+            $('.ul_end li').siblings().removeClass('actived');
+            if(document.getElementById('bars').className =='fa fa-times'){
+              document.getElementById('bars').className = 'fa fa-bars'
+            }
+            else{
+              document.getElementById('bars').className = 'fa fa-times'
+            }
+        })
+        $('.ul_end li').click(function(){
+          $(this).siblings().removeClass('actived');
+          $(this).toggleClass('actived');
+        })
+        $('.dark').click(function(){
+            $('body').toggleClass('night')
+            $('.ul_end').toggleClass('active')
+            $('header').toggleClass('activated')
+          })
+
+    })
+  </script>
+  <script type="text/javascript">
+	window.addEventListener("scroll", function(){
+		var header = document.querySelector("header");
+		header.classList.toggle("sticky", window.scrollY > 0)
+	})
+  </script>
+  </body>
+
+</html>

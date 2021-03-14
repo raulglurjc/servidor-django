@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8">
+    <title>Mis Cosas</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/info.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/users.css' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+  <body>
+
+    <header>
+  		<a href="/miscosas" class="logo">MisCosas</a>
+  <div class="menu-toggle"><i id="bars" class="fa fa-bars"></i></div>
+      <ul class="ul_end">
+
+  			<li class="home"><div class="nav_end">Home</div>
+
+          <ul>
+            <div class="over-box">
+            <li><a href="/miscosas/#top10">Top 10</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="/miscosas/#top5">Top 5</a></li>
+            {% endif %}
+            <li><a href="/miscosas/#formularios_index">Buscar Alimentador</a></li>
+          </div>
+          </ul>
+        </div>
+        </li>
+  			<li><a href="#" class="nav_end">Usuarios</a></li>
+  			<li class="descargas"><div class="nav_end">Descargas</div>
+          <ul>
+            <div class="over-box">
+            <li><a href="#">Documento XML</a></li>
+
+            <li><a href="#">Documento JSON</a></li>
+          </div>
+          </ul>
+        </li>
+  			<li><a href="/miscosas/prueba" class="nav_end active">Información</a></li>
+        {% if user.is_authenticated %}
+
+
+        </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li class="opciones"><a style="color: #89ff00;" href="#" class="nav_end">{{user.username}}</a>
+          <ul>
+            <div class="over-box">
+            <li class="dark"><a style="font-weight: 800;" href="/miscosas/night"></a></li>
+            <li><a style="font-weight: 800; color: red;" href="/miscosas/logout">Logout</a></li>
+          </div>
+            </ul>
+        </li>
+        {% else %}
+        <li><a href="/miscosas/prueba_log" class="nav_end">Login</a></li>
+        <li><a href="/miscosas/prueba_reg" class="nav_end">Registrate</a></li>
+        {% endif %}
+  		</ul>
+      	</header>
+        <div class="container-titulo">
+      <span style="--l: 'Usuarios';">Usuarios</span>
+    </div>
+    <div class="container">
+
+          {%for user in users%}
+          <div class="envelop">
+          <div class="card">
+            <div class="x"><i class="fa fa-expand"></i></div>
+            <div class="circle">
+              <h2>{{user.username}}</h2>
+            </div>
+            <div class="content">
+              <img src="{% static 'miscosasAPP/user.png' %}">
+              <a href="#">Read me</a>
+            </div>
+      </div>
+      </div>
+
+          {% endfor %}
+        </div>
+
+
+
+
+
+
+  <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+      $(".x").click(function(){
+        $(this).toggleClass('fixed')
+        $(".x").not(this).toggleClass('blocked');
+        $('.container').toggleClass('actived');
+        $(this).parent().parent().toggleClass('selected');
+        window.scrollTo(0, 0);
+        $(this).children().toggleClass('fa fa-times-circle fa fa-expand');
+        $("body").toggleClass("non-scroll");
+      });
+      $(".x.fixed").click(function(){
+
+        $(this).toggleClass('fixed')
+        $(".x").not(this).toggleClass('blocked');
+        $('.container').toggleClass('actived');
+        $(this).parent().parent().toggleClass('selected');
+        window.scrollTo(0, 0);
+        $(this).children().toggleClass('fa fa-times-circle fa fa-expand');
+        $("body").toggleClass("non-scroll");
+      });
+      $(".envelop").hover(function(){
+        if($(".container").hasClass("actived")){
+        }
+        else{
+        $(this).parent().toggleClass('hoer');
+        $(this).toggleClass('hoer');
+      }
+      });
+
+
+        $('.menu-toggle').click(function(){
+            $('.ul_end').toggleClass('active')
+            $('header').toggleClass('activated')
+            $('body').toggleClass('no-scroll')
+            if(document.getElementById('bars').className =='fa fa-times'){
+              document.getElementById('bars').className = 'fa fa-bars'
+            }
+            else{
+              document.getElementById('bars').className = 'fa fa-times'
+            }
+        })
+        $('.ul_end li').click(function(){
+          $(this).siblings().removeClass('actived');
+          $(this).toggleClass('actived');
+        })
+
+        $('.dark').click(function(){
+            $('body').toggleClass('night')
+            $('.ul_end').toggleClass('active')
+            $('header').toggleClass('activated')
+          })
+
+    })
+  </script>
+  <script type="text/javascript">
+	window.addEventListener("scroll", function(){
+		var header = document.querySelector("header");
+		header.classList.toggle("sticky", window.scrollY > 0)
+	})
+  </script>
+  </body>
+
+</html>

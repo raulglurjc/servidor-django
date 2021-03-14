@@ -1,0 +1,105 @@
+{% extends 'miscosasAPP/base.html' %}
+{% load static %}
+
+{% block bar_nav %}
+<ul class="nav navbar sticky-top">
+
+  <li>
+      <a href="/miscosas/">Inicio</a>
+    </li>
+
+    <li>
+        <a href="/miscosas/#top10">Top 10</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="/miscosas/#top5">Top 5</a>
+        </li>
+        {% endif %}
+      <li>
+          <a href="/miscosas/alimentadores">Alimentadores</a>
+        </li>
+
+          <li>
+              <a href="/miscosas/usuarios">Usuarios</a>
+            </li>
+
+
+
+              <li class="dropdown">
+  <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+    Descargas &nbsp<span class="caret"></span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Documento XML</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Documento JSON</a>
+  </div>
+</li>
+
+<li>
+    <a href="/miscosas/info">Información</a>
+  </li>
+
+  {% if not user.is_authenticated %}
+  <li class="login_nouser">
+  <div >
+      <a href="/miscosas/login" class="btn btn-primary btn-lg" role="button" >Login</a>
+  </div>
+  </li >
+  <li class="registro">
+  <div >
+      <a href="/miscosas/registro"  class="btn btn-danger" role="button" >Registrate aqui</a>
+  </div>
+  </li >
+  {% else%}
+  <li class="login">
+  <div>
+  <a class="btn btn-outline-primary btn-lg" id="boton_login" role="button" >Estas logueado en: &nbsp <span class="user_bold">{{ user.username}}</span></a>
+  </div>
+  </li >
+  <li class="logout">
+  <div>
+    <a href="/miscosas/logout" class="btn btn-danger" role="button" >Logout</a>
+  </div>
+  </li >
+  {% endif %}
+
+</ul>
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+<h1>Login Form</h1>
+
+<form id="form_login" action="/miscosas/login/" method="post">
+    <img src="{% static 'miscosasAPP/avatar.png' %}" alt="Avatar" class="avatar">
+    <div class="cont">
+      {% csrf_token %}
+      <label for="Username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="Username" required>
+
+      <label for="Password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="Password" required>
+
+      <div class="bloque_submit">
+          <div class="rememberContainer">
+          <input type="checkbox" checked="checked" name="remember"> <p>Remember me</p>
+          </div>
+
+          <button id="boton_login_form"><a class="boton alternativo" >Acceder</a></button>
+      </div>
+      {%if error%}
+        <p id="error_login" >{{error}}</p>
+      {%endif%}
+    </div>
+
+
+</form>
+ {% endblock %}

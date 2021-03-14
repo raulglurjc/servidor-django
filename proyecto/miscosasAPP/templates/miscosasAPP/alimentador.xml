@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+    <titulo>{{alimentador.nombre}}</titulo>
+    <enlace>{{alimentador.url}}</enlace>
+    {%if alimentador.seleccionado%}
+    <estado>Eliminar</estado>
+    {%else%}
+    <button>Seleccionar</button>
+    {%endif%}
+    {% if items %}
+        {% for item in items %}
+        <item>
+            <nombre>{{item.nombre}}</nombre>
+            <enlace>{{item.enlace}}</enlace>
+            <imagen>{{item.media}}</imagen>
+        </item>
+        {% endfor %}
+
+    {% endif %}
+</feed>
