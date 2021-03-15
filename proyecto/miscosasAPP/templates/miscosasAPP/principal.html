@@ -227,29 +227,33 @@
         <div class="busqueda">
           <h2>Busqueda de Alimentadores</h2>
           <div class="search-container">
-          <div class="search yt">
+          <div class="search yt" id="youtube">
             <div id="content">
              <h1>
               <span class="you">You</span>
               <span class="tube">Tube</span>
             </h1>
-              <form action="/miscosas/" method="POST">
+              <form action="/miscosas/principal/" method="POST">
+                {% csrf_token %}
                 <div class="form__div">
-                    <input type="text" class="form__input" placeholder=" ">
+                    <input type="text" class="form__input" placeholder=" " name="clave">
                     <label for="" class="form__label">Channel ID</label>
                 </div>
-            <a href="#"><i class="fab fa-youtube"></i> Buscar</a>
+                {% if error_yt %}<span class="error-yt">Error: El canal {{error_yt}} no existe.</span>{% endif %}
+            <button type="submit" name="tipo_alimentador" value="youtube"><i class="fas fa-music"></i> Buscar</button>
           </form>
             </div>
           </div>
-          <div class="search fm">
+          <div class="search fm" id="lastfm">
             <h1>L<i class="fab fa-lastfm"></i>t.fm</h1>
-            <form action="/miscosas/" method="POST">
+            <form action="/miscosas/principal/" method="POST">
+              {% csrf_token %}
                 <div class="form__div">
-                    <input type="text" class="form__input" placeholder=" ">
+                    <input type="text" class="form__input" placeholder=" " name="clave">
                     <label for="" class="form__label">Artist</label>
                 </div>
-            <a href="#"><i class="fas fa-music"></i> Buscar</a>
+                {% if error_last %}<span class="error-lastfm">Error: El artista {{error_last}} no existe.</span>{% endif %}
+            <button type="submit" name="tipo_alimentador" value="lastfm"><i class="fas fa-music"></i> Buscar</button>
           </form>
           </div>
         </div>
@@ -312,12 +316,24 @@
   </script>
   <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="{% static 'miscosasAPP/fitty.min.js' %}"></script>
-
+  
 
   <script type="text/javascript">
 
     $(document).ready(function(){
-
+        var element = document.querySelector(".error-yt");
+        if (element)
+        {
+          var element1= document.querySelector(".yt");
+          element1.scrollIntoView({block: 'center'});
+        }
+        var element = document.querySelector(".error-lastfm");
+        if (element)
+        {
+          var element1= document.querySelector(".fm");
+          element1.scrollIntoView({block: 'center'});
+        }
+        
         $('.top10 .expand').click(function(){
           swiper10.slideTo(0, 50, true);
           $('.top10 .contenido').toggleClass('actived')
