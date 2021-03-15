@@ -24,6 +24,37 @@ class RegisterForm(forms.Form):
     image = forms.ImageField(required=False)
 
 def principal(request):
+    context = {}
+    if request.method == "POST":
+        action = request.POST['tipo_alimentador']
+        if action == "youtube" or "lastfm":
+            clave = request.POST['clave']
+            Parser = make_parser()
+            if action == "youtube":
+                id = clave
+                Parser.setContentHandler(YTHandler())
+                url = 'https://www.youtube.com/feeds/videos.xml?channel_id=' \
+                + id
+            elif action == "lastfm":
+                id = clave.replace(" ", "%20")
+                Parser.setContentHandler(LastfmHandler())
+                url = 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + id + '&api_key=' + LASTFM_APIKEY
+            try:
+                xmlStream = urllib.request.urlopen(url)
+                Parser.parse(xmlStream)
+                alimentador = Alimentador.objects.get(clave=id)
+                if action =="youtube":
+                        return redirect('youtube/'+id)
+                elif action == "lastfm":
+                    return redirect('lastfm/'+id)
+
+            except:
+                if action =="youtube":
+                    context['error_yt']=clave
+                    return render(request, 'miscosasAPP/principal.html', context)
+                elif action == "lastfm":
+                    context['error_last']=clave
+                    return render(request, 'miscosasAPP/principal.html', context)
     try:
         user = request.user.username
         usuario = User.objects.get(username=user)
@@ -36,6 +67,8 @@ def principal(request):
     except User.DoesNotExist:
         dia("miscosasAPP/templates/miscosasAPP/principal.html")
         return render(request, 'miscosasAPP/principal.html')
+
+
 
 def index(request):
     items =Item.objects.all()
@@ -92,10 +125,12 @@ def index(request):
 
             except:
                 if action =="youtube":
-                    context['error_last']=id
+                    context['error_yt']=clave
+                    return render(request, 'miscosasAPP/principal.html', context)
                 elif action == "lastfm":
                     context['error_last']=clave
-                return render(request, 'miscosasAPP/index.html', context)
+                    return render(request, 'miscosasAPP/principal.html', context)
+
 
     if request.method == "GET":
         format = request.GET.get('format')
