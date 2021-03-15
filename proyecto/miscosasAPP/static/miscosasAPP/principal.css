@@ -228,7 +228,7 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
   	width: 40%;
   	margin: 70px;
   	
-  	border: 1px solid black;
+  	border: 2px solid black;
   	border-radius: 15px;
   }
   .busqueda .yt{
@@ -244,7 +244,8 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
   	margin: 20px auto;
   	text-align: center;
   	font-size: 50px;
-
+  	text-shadow: 2px 2px #FFf;
+  	letter-spacing: 3px;
   }
   #content {
 	width: 100%;
@@ -295,7 +296,7 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	display: flex;
 	justify-content: center;
 }
-.yt a, .fm a{
+.yt button, .fm button{
 	bottom:  50px;
 	position: absolute;
 	padding: 10px 30px;
@@ -306,9 +307,11 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	font-size: 20px;
 	transition: .5s;
 	overflow: hidden;
+	background: none;
+	border:none;
 	/*-webkit-box-reflect: below 1px linear-gradient(transparent, #0003);*/
 }
-.yt a:hover{
+.yt button:hover{
 	background: red;
 	color: #111;
 	box-shadow: 0 0 40px 5px black;
@@ -316,7 +319,7 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	font-weight: bold;
 	letter-spacing: 4px
 }
-.fm a:hover{
+.fm button:hover{
 	background: #b03dff;
 	color: #111;
 	box-shadow: 0 0 40px 5px black;
@@ -325,7 +328,7 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	letter-spacing: 4px
 }
 
-.yt a:before, .fm a:before{
+.yt button:before, .fm button:before{
 	content: '';
 	position: absolute;
 	top: 0;
@@ -337,12 +340,12 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	transition: .5s;
 	transition-delay: .5s;
 }
-.yt a:hover:before, .fm a:hover:before{
+.yt button:hover:before, .fm button:hover:before{
 	width: 100%;
 	height: 100%;
 	transition-delay: 0s;
 }
-.yt a:after, .fm a:after{
+.yt button:after, .fm button:after{
 	content: '';
 	position: absolute;
 	bottom: 0;
@@ -354,7 +357,7 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	transition: .5s;
 	transition-delay: .5s;
 }
-.yt a:hover:after, .fm a:hover:after{
+.yt button:hover:after, .fm button:hover:after{
 	width: 100%;
 	height: 100%;
 	transition-delay: 0s;
@@ -364,6 +367,10 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	width: 80%;
 	height: 48px;
 	top: 70px;
+	box-shadow: 0px 0px 5px 6px black;
+	border-radius: 10px;
+	border: 2px solid black;
+	background: rgba(255,255,255,.3);
 }
 .form__input{
 	position: absolute;
@@ -371,12 +378,12 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
 	left: 0;
 	width: 100%;
 	height: 100%;
-	border: 1px solid black;
+	
 	outline: none;
 	padding:1rem;
 	background: none;
 	z-index: 1;
-	border-radius: 10px;
+	border: none;
 }
 .form__label{
   position: absolute;
@@ -386,57 +393,71 @@ text-shadow: 4px 3px 0px #2BC0E4, 14px 13px 1px rgba(0,0,0,0.6);
   background-color: none;
   color: white;
   transition: .3s;
-  
+  font-weight: 600;
 	text-align: center;
   width: 100%;
 }
 .yt .form__input:focus + .form__label{
-  top: -28px;
+  top: -35px;
   left: calc(-50% + 50px);
   color: #1dc8ff;
   font-size: var(--small-font-size);
-  font-weight: 500;
+  font-weight: 600;
   z-index: 10;
 }
 
 /*Input focus sticky top label*/
 .yt .form__input:not(:placeholder-shown).form__input:not(:focus)+ .form__label{
-  top: -28px;
+  top: -35px;
   left: calc(-50% + 50px);
   font-size: var(--small-font-size);
-  font-weight: 500;
+  font-weight: 600;
   z-index: 10;
 }
 .fm .form__input:focus + .form__label{
-  top: -28px;
+  top: -35px;
   left: calc(-50% + 30px);
   color: #1dc8ff;
   font-size: var(--small-font-size);
-  font-weight: 500;
+  font-weight: 600;
   z-index: 10;
 }
 
 /*Input focus sticky top label*/
 .fm .form__input:not(:placeholder-shown).form__input:not(:focus)+ .form__label{
-  top: -28px;
+  top: -35px;
   left: calc(-50% + 30px);
   font-size: var(--small-font-size);
-  font-weight: 500;
+  font-weight: 600;
   z-index: 10;
 }
 /*Input focus*/
 .form__input:focus{
-  border: 1.5px solid black;
+	border-radius: 10px;
+  border: 1px solid black;
+	outline: none;
+}
+.error-yt, .error-lastfm{
+	position: absolute;
+	bottom: 48%;
+	text-decoration: underline;
+	font-style: oblique;
 }
 @media (max-width: 1500px)
 {
 
-
+.busqueda .search{
+  	margin: 40px;
+  	width: 50%;
+  }
 }
 /*TABLET PORTRAIT*/
 @media (min-width: 600px) and (max-width: 1024px)
 {
-
+.busqueda .search{
+  	margin: 40px;
+  	width: 90%;
+  }
 }
 /*TABLET LANDSCAPE*/
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
