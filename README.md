@@ -1,8 +1,7 @@
 # final-miscosas
 
 Autor: Raúl Gil López
-
-Still in developing phase.
+En proceso...
 
 Despliegue: http://raulgl.pythonanywhere.com/miscosas/principal
 
