@@ -234,7 +234,7 @@
               <span class="you">You</span>
               <span class="tube">Tube</span>
             </h1>
-              <form action="/miscosas/principal/" method="POST">
+              <form action="/miscosas/" method="POST">
                 {% csrf_token %}
                 <div class="form__div">
                     <input type="text" class="form__input" placeholder=" " name="clave">
@@ -247,7 +247,7 @@
           </div>
           <div class="search fm" id="lastfm">
             <h1>L<i class="fab fa-lastfm"></i>t.fm</h1>
-            <form action="/miscosas/principal/" method="POST">
+            <form action="/miscosas/" method="POST">
               {% csrf_token %}
                 <div class="form__div">
                     <input type="text" class="form__input" placeholder=" " name="clave">

@@ -206,7 +206,7 @@ def alimentador_lastfm(request, llave):
             list = [alimentador, *items]
             lista = serializers.serialize('json', list)
             return HttpResponse(lista, content_type="application/json")
-    return render(request, 'miscosasAPP/alimentador_lastfm.html', context)
+    return render(request, 'miscosasAPP/alimentador_lastfm_new.html', context)
 
 def item(request, tipo, identificador, item):
     alimentador = Alimentador.objects.get(clave=identificador)
@@ -465,30 +465,35 @@ def prueba(request):
 
 
 def prueba_reg(request):
-	if request.method == "POST":
-		usuario = request.POST.get("usuario")
-		passwd = request.POST.get("passwd")
-		email = request.POST.get("email")
-		try:
-			superUser = User.objects.get(username=usuario)
-			context = {'usuario': usuario}
-			return render(request, 'miscosasAPP/prueba_reg.html', context)
-		except User.DoesNotExist:
-			usuario = User.objects.create_user(username=usuario, email=email, password=passwd)
-			usuario.save()
-			if usuario:
-				login(request,usuario)
-			return redirect('prueba')
-	if request.method == "GET":
-		try:
-			user = request.user.username
-			usuario = User.objects.get(username=user)
-			if(usuario.night ==True):
-				return render(request, 'miscosasAPP/prueba_reg.html')
-			else:
-				return render(request, 'miscosasAPP/prueba_reg.html')
-		except User.DoesNotExist:
-			return render(request, 'miscosasAPP/prueba_reg.html')
+    print("hola")
+    if request.method == "POST":
+        usuario = request.POST.get("usuario")
+        passwd = request.POST.get("passwd")
+        email = request.POST.get("email")
+        if(len(usuario)>8):
+            max_char=True
+            context = {'max_char': max_char}
+            return render(request, 'miscosasAPP/prueba_reg.html', context)
+        try:
+        	superUser = User.objects.get(username=usuario)
+        	context = {'usuario': usuario}
+        	return render(request, 'miscosasAPP/prueba_reg.html', context)
+        except User.DoesNotExist:
+        	usuario = User.objects.create_user(username=usuario, email=email, password=passwd)
+        	usuario.save()
+        	if usuario:
+        		login(request,usuario)
+        	return redirect('prueba')
+    if request.method == "GET":
+    	try:
+    		user = request.user.username
+    		usuario = User.objects.get(username=user)
+    		if(usuario.night ==True):
+    			return render(request, 'miscosasAPP/prueba_reg.html')
+    		else:
+    			return render(request, 'miscosasAPP/prueba_reg.html')
+    	except User.DoesNotExist:
+    		return render(request, 'miscosasAPP/prueba_reg.html')
 
 def prueba_log(request):
 	if request.method == "POST":

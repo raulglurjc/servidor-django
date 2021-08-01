@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <title>Mis Cosas</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/info.css' %}"><link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/info.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/reg.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/info.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'miscosasAPP/al-last.css' %}">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
@@ -15,11 +15,11 @@
   <body>
 
     <header>
-  		<a href="/miscosas" class="logo">MisCosas</a>
+      <a href="/miscosas" class="logo">MisCosas</a>
   <div class="menu-toggle"><i id="bars" class="fa fa-bars"></i></div>
       <ul class="ul_end">
 
-  			<li class="home"><div class="nav_end">Home</div>
+        <li class="home"><div class="nav_end">Home</div>
 
           <ul>
             <div class="over-box">
@@ -32,8 +32,8 @@
           </ul>
         </div>
         </li>
-  			<li><a href="/miscosas/prueba_users" class="nav_end">Usuarios</a></li>
-  			<li class="descargas"><div class="nav_end">Descargas</div>
+        <li><a href="/miscosas/prueba_users" class="nav_end">Usuarios</a></li>
+        <li class="descargas"><div class="nav_end">Descargas</div>
           <ul>
             <div class="over-box">
             <li><a href="#">Documento XML</a></li>
@@ -42,7 +42,7 @@
           </div>
           </ul>
         </li>
-  			<li><a href="/miscosas/prueba" class="nav_end active">Información</a></li>
+        <li><a href="/miscosas/prueba" class="nav_end active">Información</a></li>
         {% if user.is_authenticated %}
 
 
@@ -60,55 +60,35 @@
         {% else %}
         <li><a href="/miscosas/prueba_log" class="nav_end">Login</a></li>
         {% endif %}
-  		</ul>
-      	</header>
+      </ul>
+        </header>
 
-
-<div class="container-registro">
-
-    <form action="/miscosas/prueba_reg/" method="post">
-      {% csrf_token %}
-  <h2>Registro</h2>
-  <div class="row100">
-
-    <div class="col">
-      <div class="inputBox">
-        <input type="text" name="usuario" required="">
-        <span class="text">Usuario</span>
-        <span class="line"></span>
-      </div>
-    </div>
-    <div class="col">
-      <div class="inputBox">
-        <input type="password" name="passwd" required="">
-        <span class="text">Contraseña</span>
-        <span class="line"></span>
-      </div>
-    </div>
-    <div class="col">
-      <div class="inputBox">
-        <input type="text" name="email" required="">
-        <span class="text">Email</span>
-        <span class="line"></span>
-      </div>
-    </div>
-  </div>
-  {% if usuario %}
-  <span id="error">El usuario <span id="nombre-error">{{usuario}}</span> ya existe.</span>
-  {% endif %}
-  {% if max_char %}
-  <span id="error">Introduzca un usuario con 8 caracteres como maximo.</span>
-  {% endif %}
-  <div class="row100">
-    <div class="col">
-      <input type="submit" value="Send">
-    </div>
-  </div>
-</form>
+<div class="alimentador-last">
+  <div class="bg-7">
+    <h1 class="t-stroke">{{alimentador.nombre}}</h1>
+</div>
 </div>
 
+<div class="cards">
 
+{% if items %}
+{% for content in items %}
 
+<div class="caja">
+  <div class="imgBx">
+    <img src="{{content.media}}">
+  </div>
+  <div class="contenido">
+    <h2>{{content.nombre}}</h2>
+</div>
+
+</div>
+
+{% endfor %}
+{% else %}
+      <p>No contents are available.</p>
+      {% endif %}
+</div>
   <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
@@ -136,10 +116,10 @@
     })
   </script>
   <script type="text/javascript">
-	window.addEventListener("scroll", function(){
-		var header = document.querySelector("header");
-		header.classList.toggle("sticky", window.scrollY > 0)
-	})
+  window.addEventListener("scroll", function(){
+    var header = document.querySelector("header");
+    header.classList.toggle("sticky", window.scrollY > 0)
+  })
   </script>
   </body>
 
